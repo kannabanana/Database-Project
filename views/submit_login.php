@@ -1,5 +1,6 @@
-<!-- Main login script -->
 <?php
+
+/* Main login script */
 
 // Start PHP Session
 session_start();

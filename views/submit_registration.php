@@ -1,5 +1,6 @@
-<!-- Submit a new user to the Users database -->
 <?php
+
+/* Submit a new user to the Users database */
 
 // Database info
 $servername = 'mysql.cs.orst.edu';

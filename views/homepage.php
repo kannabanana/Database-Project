@@ -1,9 +1,9 @@
-<!-- Homepage for logged in user -->
 <?php
 // Start PHP session
 session_start();
 ?>
 
+<!-- Homepage for logged in user -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
