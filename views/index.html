@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Main page">
+    <meta name="author" content="Brandon Lee">
+
+    <title>Welcome to Telly</title>
+
+    <!-- CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/cover.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../images/Telly.ico">
+  </head>
+  <body>
+     <!-- --------------------------------- The two main wrappers for the site --------------------------------- -->
+     <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+     <!-- --------------------------------- Navigation Bar --------------------------------- -->
+          <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+              <div class="container">
+                  <div class="navbar-header">
+                      <a class="navbar-brand" href="http://people.oregonstate.edu/~leebran/Database-Project/views/">Telly</a>
+                  </div>
+                  <!-- --------------------------------- Login Form --------------------------------- -->
+                  <form data-toggle="validator" role="form" class="navbar-form pull-right" action="submit_login.php" autocomplete="off" method="post">
+                      <input class="span2" name="username" type="text" placeholder="Username" required>
+                      <input class="span2" name="password" type="password" placeholder="Password" required>
+                      <button type="submit" class="btn">Sign in</button>
+                  </form>
+              </div>
+          </div>
+      <!-- --------------------------------- Left screen website information Panel --------------------------------- -->
+      <div class="container">
+          <div class="row">
+              <div class="col-md-6">
+                  <h1><br><br></h1>
+                  <h2>Connect with your classmates on Telly.</h2>
+                  <ul>
+                      <li><h3>Create a student profile</h3></li>
+                      <li><h3>Share your knowledge through videos</h3></li>
+                      <li><h3>Connect with others!</h3></li>
+                  </ul>
+              </div>
+      <!-- --------------------------------- Registration Form --------------------------------- -->
+              <div class="col-md-6">
+                  <h1>Sign up for free</h1>
+                  <br />
+                  <div class="container-fluid">
+                          <form data-toggle="validator" role="form" autocomplete="off" action="submit_registration.php" method="post">
+                              <div class="form-group col-lg-12">
+                                  <label for="username" class="control-label">Username</label>
+                                  <input name="username" type="text" class="form-control" placeholder="Username" required>
+                              </div>
+                              <div class="form-group col-lg-12">
+                                  <label for="major" class="control-label">Major</label>
+                                  <input name="major" type="text" class="form-control" placeholder="Major" required>
+                              </div>
+                              <div class="form-group col-sm-6">
+                                  <label for="password" class="control-label">Password</label>
+                                  <input name="password" type="password" data-minlength="5" class="form-control" id="password" placeholder="Password" required>
+                                  <span class="help-block">Minimum of 5 characters</span>
+                              </div>
+                              <div class="form-group col-sm-6">
+                                  <label for="confirm_password" class="control-label">Confirm</label>
+                                  <input name="confirm_password" type="password" class="form-control" id="confirm_password" data-match="#password" data-match-error="Passwords do not match" placeholder="Confirm Password" required>
+                                  <div class="help-block with-errors"></div>
+                              </div>
+                              <div class="form-group">
+                                  <button type="submit" class="btn btn-primary">Submit</button>
+                              </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      <!-- --------------------------------- Footer --------------------------------- -->
+          <div class="mastfoot">
+            <div class="inner">
+              <p>(C) Brandon Lee & SR Kanna 2016</p>
+            </div>
+          </div>
+         </div>
+      </div>
+    </div>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Validation Library -->
+    <!-- <script src="js/validator.js"></script> -->
+  </body>
+</html>
