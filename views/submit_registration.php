@@ -19,23 +19,18 @@ $major           = $_POST[major];
 $password        = $_POST[password];
 $hashed_password = base64_encode(hash('sha256', $password));
 
-echo $username;
-echo $major;
-echo $password;
-echo $hashed_password;
-
 // Define query
 $sql = "INSERT INTO Users (username, major, user_password) VALUES ('$username', '$major', '$hashed_password')";
 
 // Send query
 if (mysqli_query($conn, $sql)) {
-    // echo "Student enrollment inserted!";
+    //Redirect to login page after successful registration
+    header("Location: http://people.oregonstate.edu/~leebran/Database-Project/views/");
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-//Redirect to login page after registration
-header("Location: http://people.oregonstate.edu/~leebran/Database-Project/views/");
+
 
 // Close connection
 $conn->close();
