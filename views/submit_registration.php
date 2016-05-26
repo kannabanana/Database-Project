@@ -1,5 +1,6 @@
 <?php
-//Database info
+
+// Database info
 $servername = 'mysql.cs.orst.edu';
 $username = 'cs340_leebran';
 $password ='9792';
@@ -29,8 +30,6 @@ if (mysqli_query($conn, $sql)) {
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
-
-
 
 // Close connection
 $conn->close();
