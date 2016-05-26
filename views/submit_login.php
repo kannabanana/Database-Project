@@ -4,19 +4,8 @@
 // Start PHP Session
 session_start();
 
-// Database info
-$servername = 'mysql.cs.orst.edu';
-$dbname     = 'cs340_leebran';
-$username   = 'cs340_leebran';
-$password   ='9792';
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// Connect to database
+include 'database_configuration.php';
 
 // Declare variables
 $username        = $_POST[username];
@@ -29,7 +18,7 @@ $cleanUser = mysqli_real_escape_string($conn, $username);
 // Clean password input and encrypt for database comparison
 $cleanPassword = mysqli_real_escape_string($conn, base64_encode(hash('sha256', $password)));
 
-// Delcare query
+// Define query
 $sql = "SELECT * FROM Users WHERE username = '$cleanUser' AND user_password = '$cleanPassword'";
 
 // Query to find user in database

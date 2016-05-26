@@ -1,22 +1,11 @@
 <?php
-/*Upload a video to the Telly database*/
+/* Upload a video to the Telly database */
 
 // Start the session
 session_start();
 
-// Database info
-$servername = 'mysql.cs.orst.edu';
-$dbname     = 'cs340_leebran';
-$username   = 'cs340_leebran';
-$password   = '9792';
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// Connect to database
+include 'database_configuration.php';
 
 // Declare variables
 $uid       = $_SESSION['uid'];
