@@ -19,9 +19,6 @@ $cleanVideoLink = mysqli_real_escape_string($conn, $videolink);
 // Define query
 $sql = "INSERT INTO Videos (uid, videoname, videolink) VALUES ('$uid', '$videoname', '$videolink')";
 
-// Define query
-// $sql = "INSERT INTO Users (username, major, user_password) VALUES ('$username', '$major', '$hashed_password')";
-
 // Send query
 if (mysqli_query($conn, $sql)) {
     //Redirect to homepage after successful upload
