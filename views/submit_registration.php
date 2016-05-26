@@ -1,5 +1,4 @@
 <?php
-
 /* Submit a new user to the Users database */
 
 // Database info
@@ -27,7 +26,7 @@ $sql = "INSERT INTO Users (username, major, user_password) VALUES ('$username', 
 
 // Send query
 if (mysqli_query($conn, $sql)) {
-    //Redirect to login page after successful registration
+    // Redirect to login page after successful registration
     header("Location: http://people.oregonstate.edu/~leebran/Database-Project/views/");
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);

@@ -1,5 +1,4 @@
 <?php
-
 /* Main login script */
 
 // Start PHP Session
