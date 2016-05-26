@@ -1,5 +1,6 @@
+<!-- Homepage for logged in user -->
 <?php
-//Start PHP session
+// Start PHP session
 session_start();
 ?>
 

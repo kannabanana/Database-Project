@@ -1,3 +1,4 @@
+<!-- Submit a new user to the Users database -->
 <?php
 
 // Database info
