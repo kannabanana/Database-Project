@@ -95,6 +95,6 @@ session_start();
     </div>
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- Validation Library -->
-    <script src="js/validator.js"></script>
+    <script src="../js/validator.js"></script>
 </body>
 </html>
