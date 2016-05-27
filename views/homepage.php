@@ -95,5 +95,6 @@ session_start();
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- Validation Library -->
     <script src="../js/validator.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.js"></script>
 </body>
 </html>
