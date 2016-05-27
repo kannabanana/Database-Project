@@ -13,7 +13,7 @@ session_start();
     <meta name="description" content="Main page">
     <meta name="author" content="Brandon Lee">
 
-    <title>Welcome to Telly</title>
+    <title>Telly Homepage</title>
 
     <!-- CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -30,6 +30,10 @@ session_start();
                   <div class="navbar-header">
                       <a class="navbar-brand" href="#">Telly</a>
                   </div>
+                  <ul class="nav navbar-nav">
+                      <li><a href="http://people.oregonstate.edu/~leebran/Database-Project/views/homepage.php">Homepage</a></li>
+                      <li><a href="http://people.oregonstate.edu/~leebran/Database-Project/views/my_videos.php">My Videos</a></li>
+                  </ul>
                   <ul class="nav navbar-nav navbar-right">
                       <li><a href="#"><?php echo $_SESSION['username']; ?></a></li>
                   </ul>
@@ -47,16 +51,13 @@ session_start();
                       <h4>Upload a video here:</h4>
                       <form data-toggle="validator" role="form" class="form-inline" action="upload_video.php" autocomplete="off" method="post">
                           <input class="span2" name="videoname" type="text" placeholder="Video Title" required>
-                          <input class="span2" name="videolink" type="text" placeholder="Youtube Video URL" required>
+                          <input class="span2" name="videolink" type="text" placeholder="Youtube Video Embed URL" required>
                           <button type="submit" class="btn btn-primary">Upload</button>
                       </form>
 
-                      <p>Here are some of your videos:</p>
+                      <p>Your Video Library:</p>
 
                       <!-- <?php print_r($_SESSION); ?> -->
-
-                      <!-- Profile picture, update later -->
-                      <img src="images/default_profile_photo.png">
                       <br><br>
                       <!-- User's Name -->
                       <h3> <?php echo $_SESSION['firstname'] . " " . $_SESSION['lastname']; ?> </h3>
@@ -69,7 +70,8 @@ session_start();
                   </div>
                   <!-----------------------------Begin Right column --------------------------- -->
                   <div class="col-md-6">
-                      <!-- User's profile, name, and current status -->
+                      <!-- Videos from other users -->
+                      <h3>Checkout these videos from your fellow Telly users!</h3>
                       <img src="images/default_profile_photo.png" width='50' height ='50'>
                       <?php echo $_SESSION['firstname'] . " " . $_SESSION['lastname']; ?>
                       <h3><?php echo 'Status: '; echo $_SESSION['status']; ?></h3>
@@ -82,12 +84,9 @@ session_start();
                           </div>
                       </form>
                       <iframe width="560" height="315" src="https://www.youtube.com/embed/DDyT-Nynl8w" frameborder="0" allowfullscreen></iframe>
-                  </div>
-              </div>
-              <!-- --------------------------------- Footer --------------------------------- -->
-              <div class="mastfoot">
-                  <div class="inner">
-                      <p>(C) Brandon Lee & SR Kanna 2016</p>
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/DDyT-Nynl8w" frameborder="0" allowfullscreen></iframe>
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/DDyT-Nynl8w" frameborder="0" allowfullscreen></iframe>
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/DDyT-Nynl8w" frameborder="0" allowfullscreen></iframe>
                   </div>
               </div>
           </div>
