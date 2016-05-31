@@ -80,7 +80,7 @@ $conn->close();
                   <div class="col-md-6">
                       <br />
                       <br />
-                      <h2>Your Video Library:</h2>
+                      <h3>Your Video Library:</h3>
                       <br />
                       <?php
                       // For each video, render the title and embedded video
@@ -97,7 +97,7 @@ $conn->close();
                       <br />
 
                       <div class="container-fluid">
-                          <h2>Upload a video here:</h2>
+                          <h3>Upload a video here:</h3>
                           <form data-toggle="validator" role="form" class="form-inline" action="upload_video.php" autocomplete="off" method="post">
                               <div class="form-group">
                                   <input class="form-control" name="videoname" type="text" placeholder="Video Title" required>
@@ -106,6 +106,17 @@ $conn->close();
                                   <input class="form-control" name="videolink" type="text" placeholder="Youtube Video Embed URL" required>
                               </div>
                               <button type="submit" class="btn btn-primary">Upload</button>
+                          </form>
+
+                          <br />
+                          <br />
+
+                          <h3>Delete a video here:</h3>
+                          <form data-toggle="validator" role="form" class="form-inline" action="delete_video.php" autocomplete="off" method="post">
+                              <div class="form-group">
+                                  <input class="form-control" name="videoname" type="text" placeholder="Video Title" required>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Delete</button>
                           </form>
                       </div>
                   </div>
