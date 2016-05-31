@@ -86,8 +86,9 @@ $conn->close();
                       <p>
                           This website serves as a platform for navigating helpful educational videos posted by peers and classmates. The various views
                           can be navigated through by using the navigation bar above. Videos that are relevant to you are displayed to the right.
-                          In order to post videos and view videos you have posted, navigate to the "My Videos" view. To see the most recent posts, go to
-                          "Video Feed" under the navigation bar. This platform is meant to be an educational hub for students around your classes. One important
+                          In order to post videos and view videos you have posted, navigate to the "My Videos" view. To review videos, go to
+                          "Review Video" under the navigation bar. You can change your major in the username button on the right side of the navbar.
+                          This platform is meant to be an educational hub for students around your classes. One important
                           note for uploading videos is that currently we only support EMBEDDED YOUTUBE URLS.
                       </p>
                   </div>
