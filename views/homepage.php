@@ -64,6 +64,7 @@ $conn->close();
                   <ul class="nav navbar-nav">
                       <li><a href="http://people.oregonstate.edu/~leebran/Database-Project/views/homepage.php">Homepage</a></li>
                       <li><a href="http://people.oregonstate.edu/~leebran/Database-Project/views/my_videos.php">My Videos</a></li>
+                      <li><a href="http://people.oregonstate.edu/~leebran/Database-Project/views/review_video.php">Review Video</a></li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                       <li><a href="#"><?php echo $_SESSION['username']; ?></a></li>
@@ -98,7 +99,7 @@ $conn->close();
                       <br />
 
                       <?php echo "<h3>Checkout these videos from your fellow " . $_SESSION['major'] . " students:</h3>" ?>
-                      
+
                       <br />
                       <?php
                       // For each video, render the title and embedded video

@@ -4,37 +4,9 @@
 // Start the session
 session_start();
 
-// Connect to database
-include 'database_configuration.php';
-
-// Declare variables
-$uid = $_SESSION['uid'];
-
-// Define query
-$sql = "SELECT * FROM Videos WHERE uid = '$uid'";
-
-// Query to find videos in database
-if ($query = mysqli_query($conn, $sql)) {
-    $videoCounter = 0;
-
-    // Of video query results, set each of them with session variables
-    while ($videoRow = $query->fetch_assoc()) {
-        $_SESSION['videoname' . $videoCounter] = $videoRow['videoname'];
-        $_SESSION['videolink' . $videoCounter] = $videoRow['videolink'];
-        $videoCounter++;
-    }
-
-    // Free result set
-    $query->free();
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-// Close connection
-$conn->close();
 ?>
 
-<!-- My Videos page for logged in user -->
+<!-- View to rate and comment on videos -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +16,7 @@ $conn->close();
     <meta name="description" content="Main page">
     <meta name="author" content="Brandon Lee">
 
-    <title>My Videos</title>
+    <title>Telly Review</title>
 
     <!-- CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -80,28 +52,37 @@ $conn->close();
                   <div class="col-md-6">
                       <br />
                       <br />
-                      <h2>Your Video Library:</h2>
                       <br />
-                      <?php
-                      // For each video, render the title and embedded video
-                      for ($i = 0; $i < $videoCounter; $i++) {
-                        echo '<h4>' . $_SESSION['videoname' . $i] . '</h4>';
-                        echo '<iframe width="560" height="315" src="' . $_SESSION['videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
-                      }
-                      ?>
+                      <h3><?php echo "Welcome " . $_SESSION['username'] . "!" ?></h3>
+                      <!-- Web App Helpful Notes -->
+                      <p>
+                          This view serves to allow users to rate and comment on videos they've watched!
+                          Simply type the name of the video along with your ratings and comments and submit!
+                      </p>
                   </div>
                   <!-----------------------------Begin Right column --------------------------- -->
                   <div class="col-md-6">
+                      <!-- Videos from other users of the same major -->
                       <br />
                       <br />
                       <br />
+                      <h3>Review Video:</h3>
 
-                      <h2>Upload a video here:</h2>
-                      <form data-toggle="validator" role="form" class="form-inline" action="upload_video.php" autocomplete="off" method="post">
-                          <input class="span2" name="videoname" type="text" placeholder="Video Title" required>
-                          <input class="span2" name="videolink" type="text" placeholder="Youtube Video Embed URL" required>
-                          <button type="submit" class="btn btn-primary">Upload</button>
-                      </form>
+                      <div class="container-fluid">
+                              <form data-toggle="validator" role="form" autocomplete="off" action="submit_comment.php" method="post">
+                                  <div class="form-group col-lg-12">
+                                      <label for="videoname" class="control-label">Video Name</label>
+                                      <input name="videoname" type="text" class="form-control" placeholder="Video Name" required>
+                                  </div>
+                                  <div class="form-group col-lg-12">
+                                      <input name="comment" type="text" class="form-control" placeholder="Comment" required>
+                                  </div>
+                                  <div class="form-group">
+                                      <button type="submit" class="btn btn-primary">Submit Comment</button>
+                                  </div>
+                          </form>
+
+                      <br />
                   </div>
               </div>
           </div>
