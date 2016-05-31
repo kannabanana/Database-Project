@@ -81,20 +81,14 @@ $conn->close();
                       <br />
                       <br />
                       <h3><?php echo "Welcome " . $_SESSION['username'] . "!" ?></h3>
-
+                      <!-- Web App Helpful Notes -->
                       <p>
                           This website serves as a platform for navigating helpful educational videos posted by peers and classmates. The various views
                           can be navigated through by using the navigation bar above. Videos that are relevant to you are displayed to the right.
                           In order to post videos and view videos you have posted, navigate to the "My Videos" view. To see the most recent posts, go to
-                          "Video Feed" under the navigation bar. This platform is meant to be an educational hub for students around your classes.
+                          "Video Feed" under the navigation bar. This platform is meant to be an educational hub for students around your classes. One important
+                          note for uploading videos is that currently we only support EMBEDDED YOUTUBE URLS.
                       </p>
-
-                      <!-- <h4>Upload a video here:</h4>
-                      <form data-toggle="validator" role="form" class="form-inline" action="upload_video.php" autocomplete="off" method="post">
-                          <input class="span2" name="videoname" type="text" placeholder="Video Title" required>
-                          <input class="span2" name="videolink" type="text" placeholder="Youtube Video Embed URL" required>
-                          <button type="submit" class="btn btn-primary">Upload</button>
-                      </form> -->
                   </div>
                   <!-----------------------------Begin Right column --------------------------- -->
                   <div class="col-md-6">
@@ -102,7 +96,9 @@ $conn->close();
                       <br />
                       <br />
                       <br />
+
                       <?php echo "<h3>Checkout these videos from your fellow " . $_SESSION['major'] . " students:</h3>" ?>
+                      
                       <br />
                       <?php
                       // For each video, render the title and embedded video
