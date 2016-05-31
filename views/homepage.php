@@ -1,6 +1,37 @@
 <?php
-// Start PHP session
+/* Serve homepage and get videos relevant to the user's major */
+
+// Start the session
 session_start();
+
+// Connect to database
+include 'database_configuration.php';
+
+// Declare variables
+$major = $_SESSION['major'];
+
+// Define query
+$sql = "SELECT DISTINCT Videos.videoname, Videos.videolink FROM Videos, Users WHERE Users.major = '$major'";
+
+// Query to find videos in database
+if ($query = mysqli_query($conn, $sql)) {
+    $videoCounter = 0;
+
+    // Of video query results, set each of them with session variables
+    while ($videoRow = $query->fetch_assoc()) {
+        $_SESSION['homepage_videoname' . $videoCounter] = $videoRow['videoname'];
+        $_SESSION['homepage_videolink' . $videoCounter] = $videoRow['videolink'];
+        $videoCounter++;
+    }
+
+    // Free result set
+    $query->free();
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+// Close connection
+$conn->close();
 ?>
 
 <!-- Homepage for logged in user -->
@@ -46,47 +77,40 @@ session_start();
           <div class="container">
               <div class="row">
                   <div class="col-md-6">
+                      <br />
+                      <br />
+                      <br />
                       <h3><?php echo "Welcome " . $_SESSION['username'] . "!" ?></h3>
 
-                      <h4>Upload a video here:</h4>
+                      <p>
+                          This website serves as a platform for navigating helpful educational videos posted by peers and classmates. The various views
+                          can be navigated through by using the navigation bar above. Videos that are relevant to you are displayed to the right.
+                          In order to post videos and view videos you have posted, navigate to the "My Videos" view. To see the most recent posts, go to
+                          "Video Feed" under the navigation bar. This platform is meant to be an educational hub for students around your classes.
+                      </p>
+
+                      <!-- <h4>Upload a video here:</h4>
                       <form data-toggle="validator" role="form" class="form-inline" action="upload_video.php" autocomplete="off" method="post">
                           <input class="span2" name="videoname" type="text" placeholder="Video Title" required>
                           <input class="span2" name="videolink" type="text" placeholder="Youtube Video Embed URL" required>
                           <button type="submit" class="btn btn-primary">Upload</button>
-                      </form>
-
-                      <p>Your Video Library:</p>
-
-                      <!-- <?php print_r($_SESSION); ?> -->
-                      <br><br>
-                      <!-- User's Name -->
-                      <h3> <?php echo $_SESSION['firstname'] . " " . $_SESSION['lastname']; ?> </h3>
-                      <br>
-                      <!-- User's username -->
-                      <h4><?php echo "Username: " . $_SESSION['username']; ?></h4>
-                      <br>
-                      <!-- User's email -->
-                      <h4><?php echo "Email: " . $_SESSION['email']; ?></h4>
+                      </form> -->
                   </div>
                   <!-----------------------------Begin Right column --------------------------- -->
                   <div class="col-md-6">
-                      <!-- Videos from other users -->
-                      <h3>Checkout these videos from your fellow Telly users!</h3>
-                      <img src="images/default_profile_photo.png" width='50' height ='50'>
-                      <?php echo $_SESSION['firstname'] . " " . $_SESSION['lastname']; ?>
-                      <h3><?php echo 'Status: '; echo $_SESSION['status']; ?></h3>
-                      <br>
-                      <!-- Form to update status -->
-                      <form class="form-inline" role="form" autocomplete="off" action="update_status.php" method="post">
-                          <div class="form-group">
-                              <input name="status" type="text" class="form-control" placeholder="What's on your mind?">
-                              <button type="submit" class="btn btn-primary">Update</button>
-                          </div>
-                      </form>
-                      <iframe width="560" height="315" src="https://www.youtube.com/embed/DDyT-Nynl8w" frameborder="0" allowfullscreen></iframe>
-                      <iframe width="560" height="315" src="https://www.youtube.com/embed/DDyT-Nynl8w" frameborder="0" allowfullscreen></iframe>
-                      <iframe width="560" height="315" src="https://www.youtube.com/embed/DDyT-Nynl8w" frameborder="0" allowfullscreen></iframe>
-                      <iframe width="560" height="315" src="https://www.youtube.com/embed/DDyT-Nynl8w" frameborder="0" allowfullscreen></iframe>
+                      <!-- Videos from other users of the same major -->
+                      <br />
+                      <br />
+                      <br />
+                      <?php echo "<h3>Checkout these videos from your fellow " . $_SESSION['major'] . " students:</h3>" ?>
+                      <br />
+                      <?php
+                      // For each video, render the title and embedded video
+                      for ($i = 0; $i < $videoCounter; $i++) {
+                        echo '<h4>' . $_SESSION['homepage_videoname' . $i] . '</h4>';
+                        echo '<iframe width="560" height="315" src="' . $_SESSION['homepage_videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
+                      }
+                      ?>
                   </div>
               </div>
           </div>

@@ -30,7 +30,6 @@ if ($query = mysqli_query($conn, $sql)) {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-
 // Close connection
 $conn->close();
 ?>
@@ -78,6 +77,8 @@ $conn->close();
           <div class="container">
               <div class="row">
                   <div class="col-md-6">
+                      <br />
+                      <br />
                       <h2>Your Video Library:</h2>
                       <br />
                       <?php
