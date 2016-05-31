@@ -96,12 +96,18 @@ $conn->close();
                       <br />
                       <br />
 
-                      <h2>Upload a video here:</h2>
-                      <form data-toggle="validator" role="form" class="form-inline" action="upload_video.php" autocomplete="off" method="post">
-                          <input class="span2" name="videoname" type="text" placeholder="Video Title" required>
-                          <input class="span2" name="videolink" type="text" placeholder="Youtube Video Embed URL" required>
-                          <button type="submit" class="btn btn-primary">Upload</button>
-                      </form>
+                      <div class="container-fluid">
+                          <h2>Upload a video here:</h2>
+                          <form data-toggle="validator" role="form" class="form-inline" action="upload_video.php" autocomplete="off" method="post">
+                              <div class="form-group">
+                                  <input class="form-control" name="videoname" type="text" placeholder="Video Title" required>
+                              </div>
+                              <div class="form-group">
+                                  <input class="form-control" name="videolink" type="text" placeholder="Youtube Video Embed URL" required>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Upload</button>
+                          </form>
+                      </div>
                   </div>
               </div>
           </div>
