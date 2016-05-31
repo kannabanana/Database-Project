@@ -7,22 +7,44 @@ session_start();
 // Connect to database
 include 'database_configuration.php';
 
+// Declare variables
+$major = $_SESSION['major'];
+
 // Define query
-$sql = "SELECT * FROM Videos";
+$sql0 = "SELECT * FROM Videos";
+$sql1 = "SELECT * FROM Comments";
 
 // Query to find videos in database
-if ($query = mysqli_query($conn, $sql)) {
+if ($query0 = mysqli_query($conn, $sql0)) {
     $videoCounter = 0;
 
     // Of video query results, set each of them with session variables
-    while ($videoRow = $query->fetch_assoc()) {
+    while ($videoRow = $query0->fetch_assoc()) {
+        $_SESSION['review_videoid' . $videoCounter]   = $videoRow['vid'];
         $_SESSION['review_videoname' . $videoCounter] = $videoRow['videoname'];
         $_SESSION['review_videolink' . $videoCounter] = $videoRow['videolink'];
         $videoCounter++;
     }
 
     // Free result set
-    $query->free();
+    $query0->free();
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+// Query to find comments in database
+if ($query1 = mysqli_query($conn, $sql1)) {
+    $commentCounter = 0;
+
+    // Of comment query results, set each of them with session variables
+    while ($commentRow = $query1->fetch_assoc()) {
+        $_SESSION['commentvideoid' . $commentCounter] = $commentRow['vid'];
+        $_SESSION['commentcontent' . $commentCounter] = $commentRow['theComment'];
+        $commentCounter++;
+    }
+
+    // Free result set
+    $query1->free();
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
@@ -92,8 +114,15 @@ $conn->close();
                       <?php
                       // For each video, render the title and embedded video
                       for ($i = 0; $i < $videoCounter; $i++) {
-                        echo '<h4>' . $_SESSION['review_videoname' . $i] . '</h4>';
-                        echo '<iframe width="560" height="315" src="' . $_SESSION['review_videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
+                          echo '<h4>' . $_SESSION['review_videoname' . $i] . '</h4>';
+                          echo '<iframe width="560" height="315" src="' . $_SESSION['review_videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
+                          
+                          // Check every comment for every video and print comments if relevant to the specific video
+                          for ($j = 0; $j < $commentCounter; $j++) {
+                              if ($_SESSION['review_videoid' . $i] == $_SESSION['commentvideoid' . $j]) {
+                                  echo '<p>' . $_SESSION['commentcontent' . $j] . '</p>';
+                              }
+                          }
                       }
                       ?>
                   </div>
@@ -108,7 +137,7 @@ $conn->close();
                       <div class="container-fluid">
                               <form data-toggle="validator" role="form" autocomplete="off" action="submit_comment.php" method="post">
                                   <div class="form-group col-lg-12">
-                                      <label for="videoname" class="control-label">Video Name</label>
+                                      <label for="videoname" class="control-label">Add a comment</label>
                                       <input name="videoname" type="text" class="form-control" placeholder="Video Name" required>
                                   </div>
                                   <div class="form-group col-lg-12">
@@ -118,7 +147,6 @@ $conn->close();
                                       <button type="submit" class="btn btn-primary">Submit Comment</button>
                                   </div>
                           </form>
-
                       <br />
                   </div>
               </div>
