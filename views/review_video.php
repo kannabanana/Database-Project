@@ -4,6 +4,32 @@
 // Start the session
 session_start();
 
+// Connect to database
+include 'database_configuration.php';
+
+// Define query
+$sql = "SELECT * FROM Videos";
+
+// Query to find videos in database
+if ($query = mysqli_query($conn, $sql)) {
+    $videoCounter = 0;
+
+    // Of video query results, set each of them with session variables
+    while ($videoRow = $query->fetch_assoc()) {
+        $_SESSION['review_videoname' . $videoCounter] = $videoRow['videoname'];
+        $_SESSION['review_videolink' . $videoCounter] = $videoRow['videolink'];
+        $videoCounter++;
+    }
+
+    // Free result set
+    $query->free();
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+// Close connection
+$conn->close();
+
 ?>
 
 <!-- View to rate and comment on videos -->
@@ -53,12 +79,23 @@ session_start();
                       <br />
                       <br />
                       <br />
-                      <h3><?php echo "Welcome " . $_SESSION['username'] . "!" ?></h3>
+                      <h2><?php echo "Welcome " . $_SESSION['username'] . "!" ?></h2>
                       <!-- Web App Helpful Notes -->
                       <p>
                           This view serves to allow users to rate and comment on videos they've watched!
                           Simply type the name of the video along with your ratings and comments and submit!
                       </p>
+
+                      <h3>Here's a list of videos:</h3>
+
+                      <br />
+                      <?php
+                      // For each video, render the title and embedded video
+                      for ($i = 0; $i < $videoCounter; $i++) {
+                        echo '<h4>' . $_SESSION['review_videoname' . $i] . '</h4>';
+                        echo '<iframe width="560" height="315" src="' . $_SESSION['review_videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
+                      }
+                      ?>
                   </div>
                   <!-----------------------------Begin Right column --------------------------- -->
                   <div class="col-md-6">
