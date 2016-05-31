@@ -1,5 +1,5 @@
 <?php
-/* Submit a new user to the Users database */
+/* Submit major update to User database */
 
 // Connect to database
 include 'database_configuration.php';

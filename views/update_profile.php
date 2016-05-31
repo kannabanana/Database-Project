@@ -1,5 +1,5 @@
 <?php
-/* Get videos posted by the current user */
+/* Update the current user */
 
 // Start the session
 session_start();
