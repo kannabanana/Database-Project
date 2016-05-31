@@ -91,20 +91,16 @@ $conn->close();
                   </div>
                   <!-----------------------------Begin Right column --------------------------- -->
                   <div class="col-md-6">
-                      <!-- Videos from other users -->
-                      <h3>Checkout these videos from your fellow Telly users!</h3>
-                      <img src="images/default_profile_photo.png" width='50' height ='50'>
-                      <?php echo $_SESSION['firstname'] . " " . $_SESSION['lastname']; ?>
-                      <h3><?php echo 'Status: '; echo $_SESSION['status']; ?></h3>
-                      <br>
-                      <!-- Form to update status -->
-                      <form class="form-inline" role="form" autocomplete="off" action="update_status.php" method="post">
-                          <div class="form-group">
-                              <input name="status" type="text" class="form-control" placeholder="What's on your mind?">
-                              <button type="submit" class="btn btn-primary">Update</button>
-                          </div>
+                      <br />
+                      <br />
+                      <br />
+
+                      <h2>Upload a video here:</h2>
+                      <form data-toggle="validator" role="form" class="form-inline" action="upload_video.php" autocomplete="off" method="post">
+                          <input class="span2" name="videoname" type="text" placeholder="Video Title" required>
+                          <input class="span2" name="videolink" type="text" placeholder="Youtube Video Embed URL" required>
+                          <button type="submit" class="btn btn-primary">Upload</button>
                       </form>
-                      <iframe width="560" height="315" src="https://www.youtube.com/embed/DDyT-Nynl8w" frameborder="0" allowfullscreen></iframe>
                   </div>
               </div>
           </div>
