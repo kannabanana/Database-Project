@@ -24,18 +24,23 @@ a:hover {
  * Base structure
  */
 
-html,
-body {
+html, body {
   height: 100%;
-  background-color: #FF9C43;
+  background-color: #D4DDF5; /*#FF9C43*/
 }
+
 body {
   color: black;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 
-form{
+.h4, h4 {
+    font-size: 18px;
+    text-align: left;
+}
+
+form {
     color: black;
 }
 

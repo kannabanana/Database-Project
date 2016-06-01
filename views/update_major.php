@@ -1,17 +1,15 @@
 <?php
-/* Submit a new user to the Users database */
+/* Submit major update to User database */
 
 // Connect to database
 include 'database_configuration.php';
 
 // Declare variables
-$username        = $_POST[username];
-$major           = $_POST[major];
-$password        = $_POST[password];
-$hashed_password = base64_encode(hash('sha256', $password));
+$uid   = $_SESSION['uid'];
+$major = $_POST[major];
 
 // Define query
-$sql = "INSERT INTO Users (username, major, user_password) VALUES ('$username', '$major', '$hashed_password')";
+$sql = "UPDATE Users SET Users.major = '$major' WHERE Users.uid = '$uid'";
 
 // Send query
 if (mysqli_query($conn, $sql)) {
