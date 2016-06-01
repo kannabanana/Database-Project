@@ -11,7 +11,7 @@ include 'database_configuration.php';
 $major = $_SESSION['major'];
 
 // Define query
-$sql = "SELECT DISTINCT Videos.videoname, Videos.videolink FROM Videos, Users WHERE Users.major = '$major'";
+$sql = "SELECT DISTINCT Videos.videoname, Videos.videolink FROM Videos INNER JOIN Users ON Videos.uid = Users.uid WHERE Users.major = '$major'";
 
 // Query to find videos in database
 if ($query = mysqli_query($conn, $sql)) {
