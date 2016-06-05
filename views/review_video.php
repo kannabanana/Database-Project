@@ -149,6 +149,27 @@ $conn->close();
                           </form>
                       <br />
                   </div>
+
+                  <div class="container-fluid">
+                          <form data-toggle="validator" role="form" autocomplete="off" action="submit_rating.php" method="post">
+                              <div class="form-group col-lg-12">
+                                  <label for="videoname" class="control-label">Add a rating</label>
+                                  <input name="videoname" type="text" class="form-control" placeholder="Video Name" required>
+                                  <label for="rating">Select Rating:</label>
+                                  <select class="form-control" name="rating">
+                                      <option value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                  <button type="submit" class="btn btn-primary">Submit Rating</button>
+                              </div>
+                      </form>
+                  <br />
+              </div>
               </div>
           </div>
         </div>
