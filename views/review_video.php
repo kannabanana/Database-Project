@@ -143,6 +143,8 @@ $conn->close();
                               echo '<p id="ratingComment">This video has not been rated yet.</p>';
                           }
 
+                          echo '<h5>Comments:</h5>';
+
                           // Check every comment for every video and print comments if relevant to the specific video
                           for ($j = 0; $j < $commentCounter; $j++) {
                               if ($_SESSION['review_videoid' . $i] == $_SESSION['commentvideoid' . $j]) {
