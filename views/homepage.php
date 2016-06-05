@@ -11,23 +11,61 @@ include 'database_configuration.php';
 $major = $_SESSION['major'];
 
 // Define query
-$sql = "SELECT DISTINCT Videos.videoname, Videos.videolink FROM Videos INNER JOIN Users ON Videos.uid = Users.uid WHERE Users.major = '$major'";
+$sql0 = "SELECT DISTINCT Videos.vid, Videos.videoname, Videos.videolink FROM Videos INNER JOIN Users ON Videos.uid = Users.uid WHERE Users.major = '$major'";
+$sql1 = "SELECT * FROM Comments";
 
 // Query to find videos in database
-if ($query = mysqli_query($conn, $sql)) {
+if ($query0 = mysqli_query($conn, $sql0)) {
     $videoCounter = 0;
 
     // Of video query results, set each of them with session variables
-    while ($videoRow = $query->fetch_assoc()) {
+    while ($videoRow = $query0->fetch_assoc()) {
+        $_SESSION['homepage_videoid' . $videoCounter]   = $videoRow['vid'];
         $_SESSION['homepage_videoname' . $videoCounter] = $videoRow['videoname'];
         $_SESSION['homepage_videolink' . $videoCounter] = $videoRow['videolink'];
         $videoCounter++;
     }
 
     // Free result set
-    $query->free();
+    $query0->free();
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+// Query to find comments in database
+if ($query1 = mysqli_query($conn, $sql1)) {
+    $commentCounter = 0;
+
+    // Of comment query results, set each of them with session variables
+    while ($commentRow = $query1->fetch_assoc()) {
+        $_SESSION['commentvideoid' . $commentCounter] = $commentRow['vid'];
+        $_SESSION['commentcontent' . $commentCounter] = $commentRow['theComment'];
+        $commentCounter++;
+    }
+
+    // Free result set
+    $query1->free();
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+// Query to find averages rating in database
+for ($i = 0; $i < $videoCounter; $i++) {
+
+    // Define query
+    $sql2 = "SELECT AVG(rating) AS RatingAverage FROM Ratings WHERE Ratings.vid =" . $_SESSION['homepage_videoid' . $i];
+
+    // Of found values, set them to session variables
+    if ($query2 = mysqli_query($conn, $sql2)) {
+        while ($ratingRow = $query2->fetch_assoc()) {
+            $_SESSION['averageRating' . $i] = $ratingRow['RatingAverage'];
+        }
+
+        // Free result set
+        $query2->free();
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
 }
 
 // Close connection
@@ -87,9 +125,9 @@ $conn->close();
                           This website serves as a platform for navigating helpful educational videos posted by peers and classmates. The various views
                           can be navigated through by using the navigation bar above. Videos that are relevant to you are displayed to the right.
                           In order to post videos and view videos you have posted, navigate to the "My Videos" view. To review videos, go to
-                          "Review Video" under the navigation bar. Comments on your videos can be viewed on this page. You can change your major
+                          "Review Video" under the navigation bar. Comments on videos can be added on this page. You can change your major
                           in the username button on the right side of the navbar. This platform is meant to be an educational hub for students
-                          around your classes. One important note for uploading videos is that currently we only support EMBEDDED YOUTUBE URLS.
+                          around your classes. One important note for uploading videos is that currently we only support <b>EMBEDDED YOUTUBE URLS</b>.
                       </p>
                   </div>
                   <!-----------------------------Begin Right column --------------------------- -->
@@ -105,8 +143,24 @@ $conn->close();
                       <?php
                       // For each video, render the title and embedded video
                       for ($i = 0; $i < $videoCounter; $i++) {
-                        echo '<h4>' . $_SESSION['homepage_videoname' . $i] . '</h4>';
-                        echo '<iframe width="560" height="315" src="' . $_SESSION['homepage_videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
+                          echo '<h4>' . $_SESSION['homepage_videoname' . $i] . '</h4>';
+                          echo '<iframe width="560" height="315" src="' . $_SESSION['homepage_videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
+
+                          // If video has an average rating... print it out!
+                          if ($_SESSION['averageRating' . $i] != null) {
+                              echo '<p id="ratingComment">Average Rating: ' . $_SESSION['averageRating' . $i] . ' out of 5 stars</p>';
+                          } else {
+                              echo '<p id="ratingComment">This video has not been rated yet.</p>';
+                          }
+
+                          echo '<h5>Comments:</h5>';
+
+                          // Check every comment for every video and print comments if relevant to the specific video
+                          for ($j = 0; $j < $commentCounter; $j++) {
+                              if ($_SESSION['homepage_videoid' . $i] == $_SESSION['commentvideoid' . $j]) {
+                                  echo '<p>' . $_SESSION['commentcontent' . $j] . '</p>';
+                              }
+                          }
                       }
                       ?>
                   </div>
