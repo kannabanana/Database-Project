@@ -11,23 +11,61 @@ include 'database_configuration.php';
 $uid = $_SESSION['uid'];
 
 // Define query
-$sql = "SELECT * FROM Videos WHERE uid = '$uid'";
+$sql0 = "SELECT * FROM Videos WHERE uid = '$uid'";
+$sql1 = "SELECT * FROM Comments";
 
 // Query to find videos in database
-if ($query = mysqli_query($conn, $sql)) {
+if ($query0 = mysqli_query($conn, $sql0)) {
     $videoCounter = 0;
 
     // Of video query results, set each of them with session variables
-    while ($videoRow = $query->fetch_assoc()) {
-        $_SESSION['videoname' . $videoCounter] = $videoRow['videoname'];
-        $_SESSION['videolink' . $videoCounter] = $videoRow['videolink'];
+    while ($videoRow = $query0->fetch_assoc()) {
+        $_SESSION['myvideos_videoid' . $videoCounter] = $videoRow['vid'];
+        $_SESSION['videoname' . $videoCounter]        = $videoRow['videoname'];
+        $_SESSION['videolink' . $videoCounter]        = $videoRow['videolink'];
         $videoCounter++;
     }
 
     // Free result set
-    $query->free();
+    $query0->free();
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+// Query to find comments in database
+if ($query1 = mysqli_query($conn, $sql1)) {
+    $commentCounter = 0;
+
+    // Of comment query results, set each of them with session variables
+    while ($commentRow = $query1->fetch_assoc()) {
+        $_SESSION['commentvideoid' . $commentCounter] = $commentRow['vid'];
+        $_SESSION['commentcontent' . $commentCounter] = $commentRow['theComment'];
+        $commentCounter++;
+    }
+
+    // Free result set
+    $query1->free();
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+// Query to find averages rating in database
+for ($i = 0; $i < $videoCounter; $i++) {
+
+    // Define query
+    $sql2 = "SELECT AVG(rating) AS RatingAverage FROM Ratings WHERE Ratings.vid =" . $_SESSION['myvideos_videoid' . $i];
+
+    // Of found values, set them to session variables
+    if ($query2 = mysqli_query($conn, $sql2)) {
+        while ($ratingRow = $query2->fetch_assoc()) {
+            $_SESSION['averageRating' . $i] = $ratingRow['RatingAverage'];
+        }
+
+        // Free result set
+        $query2->free();
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
 }
 
 // Close connection
@@ -85,8 +123,24 @@ $conn->close();
                       <?php
                       // For each video, render the title and embedded video
                       for ($i = 0; $i < $videoCounter; $i++) {
-                        echo '<h4>' . $_SESSION['videoname' . $i] . '</h4>';
-                        echo '<iframe width="560" height="315" src="' . $_SESSION['videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
+                          echo '<h4>' . $_SESSION['videoname' . $i] . '</h4>';
+                          echo '<iframe width="560" height="315" src="' . $_SESSION['videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
+
+                          // If video has an average rating... print it out!
+                          if ($_SESSION['averageRating' . $i] != null) {
+                              echo '<p id="ratingComment">Average Rating: ' . $_SESSION['averageRating' . $i] . ' out of 5 stars</p>';
+                          } else {
+                              echo '<p id="ratingComment">This video has not been rated yet.</p>';
+                          }
+
+                          echo '<h5>Comments:</h5>';
+
+                          // Check every comment for every video and print comments if relevant to the specific video
+                          for ($j = 0; $j < $commentCounter; $j++) {
+                              if ($_SESSION['myvideos_videoid' . $i] == $_SESSION['commentvideoid' . $j]) {
+                                  echo '<p>' . $_SESSION['commentcontent' . $j] . '</p>';
+                              }
+                          }
                       }
                       ?>
                   </div>
