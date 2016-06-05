@@ -24,6 +24,10 @@ a:hover {
  * Base structure
  */
 
+ #ratingComment {
+     text-align: right;;
+ }
+
 html, body {
   height: 100%;
   background-color: #D4DDF5; /*#FF9C43*/

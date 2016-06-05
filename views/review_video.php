@@ -49,6 +49,25 @@ if ($query1 = mysqli_query($conn, $sql1)) {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
+// Query to find averages rating in database
+for ($i = 0; $i < $videoCounter; $i++) {
+
+    // Define query
+    $sql2 = "SELECT AVG(rating) AS RatingAverage FROM Ratings WHERE Ratings.vid =" . $_SESSION['review_videoid' . $i];
+
+    // Of found values, set them to session variables
+    if ($query2 = mysqli_query($conn, $sql2)) {
+        while ($ratingRow = $query2->fetch_assoc()) {
+            $_SESSION['averageRating' . $i] = $ratingRow['RatingAverage'];
+        }
+
+        // Free result set
+        $query2->free();
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+}
+
 // Close connection
 $conn->close();
 
@@ -117,6 +136,13 @@ $conn->close();
                           echo '<h4>' . $_SESSION['review_videoname' . $i] . '</h4>';
                           echo '<iframe width="560" height="315" src="' . $_SESSION['review_videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
 
+                          // If video has an average rating... print it out!
+                          if ($_SESSION['averageRating' . $i] != null) {
+                              echo '<p id="ratingComment">Average Rating: ' . $_SESSION['averageRating' . $i] . ' out of 5 stars</p>';
+                          } else {
+                              echo '<p id="ratingComment">This video has not been rated yet.</p>';
+                          }
+
                           // Check every comment for every video and print comments if relevant to the specific video
                           for ($j = 0; $j < $commentCounter; $j++) {
                               if ($_SESSION['review_videoid' . $i] == $_SESSION['commentvideoid' . $j]) {
@@ -157,11 +183,11 @@ $conn->close();
                                   <input name="videoname" type="text" class="form-control" placeholder="Video Name" required>
                                   <label for="rating">Select Rating:</label>
                                   <select class="form-control" name="rating">
-                                      <option value="1">1</option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
-                                      <option value="4">4</option>
-                                      <option value="5">5</option>
+                                      <option value="1">1 Stars</option>
+                                      <option value="2">2 Stars</option>
+                                      <option value="3">3 Stars</option>
+                                      <option value="4">4 Stars</option>
+                                      <option value="5">5 Stars</option>
                                   </select>
                               </div>
                               <div class="form-group">
