@@ -15,9 +15,10 @@ $videolink = $_POST[videolink];
 // Clean input
 $cleanVideoName = mysqli_real_escape_string($conn, $videoname);
 $cleanVideoLink = mysqli_real_escape_string($conn, $videolink);
+$URL = str_ireplace("https://youtu.be/", "", $cleanVideoLink);
 
 // Define query
-$sql = "INSERT INTO Videos (uid, videoname, videolink) VALUES ('$uid', '$videoname', '$videolink')";
+$sql = "INSERT INTO Videos (uid, videoname, videolink) VALUES ('$uid', '$videoname', '$URL')";
 
 // Send query
 if (mysqli_query($conn, $sql)) {

@@ -124,7 +124,7 @@ $conn->close();
                       // For each video, render the title and embedded video
                       for ($i = 0; $i < $videoCounter; $i++) {
                           echo '<h4>' . $_SESSION['videoname' . $i] . '</h4>';
-                          echo '<iframe width="560" height="315" src="' . $_SESSION['videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
+                          echo '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $_SESSION['videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
 
                           // If video has an average rating... print it out!
                           if ($_SESSION['averageRating' . $i] != null) {
@@ -157,7 +157,7 @@ $conn->close();
                                   <input class="form-control" name="videoname" type="text" placeholder="Video Title" required>
                               </div>
                               <div class="form-group">
-                                  <input class="form-control" name="videolink" type="text" placeholder="Youtube Video Embed URL" required>
+                                  <input class="form-control" name="videolink" type="text" placeholder="Youtube Video URL" required>
                               </div>
                               <button type="submit" class="btn btn-primary">Upload</button>
                           </form>

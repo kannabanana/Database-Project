@@ -134,7 +134,7 @@ $conn->close();
                       // For each video, render the title and embedded video
                       for ($i = 0; $i < $videoCounter; $i++) {
                           echo '<h4>' . $_SESSION['review_videoname' . $i] . '</h4>';
-                          echo '<iframe width="560" height="315" src="' . $_SESSION['review_videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
+                          echo '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $_SESSION['review_videolink' . $i] . '" frameborder="0" allowfullscreen></iframe>';
 
                           // If video has an average rating... print it out!
                           if ($_SESSION['averageRating' . $i] != null) {
