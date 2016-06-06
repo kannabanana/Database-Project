@@ -127,7 +127,7 @@ $conn->close();
                           In order to post videos and view videos you have posted, navigate to the "My Videos" view. To review videos, go to
                           "Review Video" under the navigation bar. Comments on videos can be added on this page. You can change your major
                           in the username button on the right side of the navbar. This platform is meant to be an educational hub for students
-                          around your classes. One important note for uploading videos is that currently we only support <b>EMBEDDED YOUTUBE URLS</b>.
+                          around your classes.
                       </p>
                   </div>
                   <!-----------------------------Begin Right column --------------------------- -->
