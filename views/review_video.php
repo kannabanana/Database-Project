@@ -13,6 +13,7 @@ $major = $_SESSION['major'];
 // Define query
 $sql0 = "SELECT * FROM Videos";
 $sql1 = "SELECT * FROM Comments";
+$sql2 = "SELECT * FROM Keywords";
 
 // Query to find videos in database
 if ($query0 = mysqli_query($conn, $sql0)) {
@@ -31,6 +32,24 @@ if ($query0 = mysqli_query($conn, $sql0)) {
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
+
+if ($query2 = mysqli_query($conn, $sql2)) {
+    $keywordcounter = 0;
+
+    // Of video query results, set each of them with session variables
+    while ($keywordRow = $query2->fetch_assoc()) {
+        $_SESSION['fkeyword1' . $keywordcounter]   = $keywordRow['keyword1'];
+        $_SESSION['fkeyword2' . $keywordcounter] = $keywordRow['keyword2'];
+        $_SESSION['fkeyword3' . $keywordcounter] = $keywordRow['keyword3'];
+        $keywordcounter++;
+    }
+
+    // Free result set
+    $query2->free();
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
 
 // Query to find comments in database
 if ($query1 = mysqli_query($conn, $sql1)) {
@@ -140,7 +159,18 @@ $conn->close();
                           if ($_SESSION['averageRating' . $i] != null) {
                               echo '<p id="ratingComment">Average Rating: ' . $_SESSION['averageRating' . $i] . ' out of 5 stars</p>';
                           } else {
-                              echo '<p id="ratingComment">This video has not been rated yet.</p>';
+                              echo '<p id="ratingComment">This video has not been rated yet. You should rate it! </p>';
+                          }
+		
+
+			echo '<h5>Keywords:</h5>';
+			for ($k = 0; $k < $keywordcounter; $k++) {
+                              if ($_SESSION['fkeyword1' . $i] == $_SESSION['fkeyword1' . $k]) {
+                                  echo '<p>' . $_SESSION['fkeyword1' . $k] . '</p>';
+		                  echo '<p>' . $_SESSION['fkeyword2' . $k] . '</p>';
+		                  echo '<p>' . $_SESSION['fkeyword3' . $k] . '</p>';
+	
+                              }
                           }
 
                           echo '<h5>Comments:</h5>';

@@ -1,43 +1,41 @@
 <?php
-/* upload a video to the telly database */
 
-// start the session
 session_start();
-
-// connect to database
+// Connect to database
 include 'database_configuration.php';
+// Declare variables
+$uid       = $_SESSION['uid'];
+$videoname = $_POST[videoname];
+$videolink = $_POST[videolink];
+$keyword1  = $_POST[keyword1];
+$keyword2  = $_POST[keyword2];
+$keyword3  = $_POST[keyword3];
 
-// declare variables
-$uid       = $_session['uid'];
-$videoname = $_post[videoname];
-$videolink = $_post[videolink];
-$keyword1  = $_post[keyword1];
-$keyword2  = $_post[keyword2];
-$keyword3  = $_post[keyword3];
+// Clean input
+$cleanVideoName = mysqli_real_escape_string($conn, $videoname);
+$cleanVideoLink = mysqli_real_escape_string($conn, $videolink);
+$URL = str_ireplace("https://youtu.be/", "", $cleanVideoLink);
 
-
-// clean input
-$cleanvideoname = mysqli_real_escape_string($conn, $videoname);
-$cleanvideolink = mysqli_real_escape_string($conn, $videolink);
-$cleankey1 = mysqli_real_escape_string($conn, $keyword2);
-$cleankey2 = mysqli_real_escape_string($conn, $keyword1);
+$cleankey1 = mysqli_real_escape_string($conn, $keyword1);
+$cleankey2 = mysqli_real_escape_string($conn, $keyword2);
 $cleankey3 = mysqli_real_escape_string($conn, $keyword3);
 
 
-// define query
-$sql = "insert into videos (uid, videoname, videolink) values ('$uid', '$videoname', '$videolink')";
+// Define query
+$sql = "INSERT INTO Videos (uid, videoname, videolink) VALUES ('$uid', '$videoname', '$URL')";
+$sql2 = "INSERT INTO Keywords (uid,videname,keyword1,keyword2,keyword3) VALUES ('$uid','$videoname','$keyword1','$keyword2','$keyword3')";
 
-$vid = "select vid from videos where uid='$uid' and videoname='$videoname';
+// Send query
 
-
-// send query
 if (mysqli_query($conn, $sql)) {
-    //redirect to homepage after successful upload
-header("location: http://web.engr.oregonstate.edu/~kannas/database-pr/database-project/views/homepage.php");
-} else {
-    echo "error: " . $sql . "<br>" . mysqli_error($conn);
+	//Redirect to homepage after successful upload
+	header("Location: http://web.engr.oregonstate.edu/~kannas/database-pr/Database-Project/views/homepage.php");
+}
+else {
+	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-// close connection
+// Close connection
 $conn->close();
 ?>
+
