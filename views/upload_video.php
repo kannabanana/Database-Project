@@ -1,32 +1,43 @@
 <?php
-/* Upload a video to the Telly database */
+/* upload a video to the telly database */
 
-// Start the session
+// start the session
 session_start();
 
-// Connect to database
+// connect to database
 include 'database_configuration.php';
 
-// Declare variables
-$uid       = $_SESSION['uid'];
-$videoname = $_POST[videoname];
-$videolink = $_POST[videolink];
+// declare variables
+$uid       = $_session['uid'];
+$videoname = $_post[videoname];
+$videolink = $_post[videolink];
+$keyword1  = $_post[keyword1];
+$keyword2  = $_post[keyword2];
+$keyword3  = $_post[keyword3];
 
-// Clean input
-$cleanVideoName = mysqli_real_escape_string($conn, $videoname);
-$cleanVideoLink = mysqli_real_escape_string($conn, $videolink);
 
-// Define query
-$sql = "INSERT INTO Videos (uid, videoname, videolink) VALUES ('$uid', '$videoname', '$videolink')";
+// clean input
+$cleanvideoname = mysqli_real_escape_string($conn, $videoname);
+$cleanvideolink = mysqli_real_escape_string($conn, $videolink);
+$cleankey1 = mysqli_real_escape_string($conn, $keyword2);
+$cleankey2 = mysqli_real_escape_string($conn, $keyword1);
+$cleankey3 = mysqli_real_escape_string($conn, $keyword3);
 
-// Send query
+
+// define query
+$sql = "insert into videos (uid, videoname, videolink) values ('$uid', '$videoname', '$videolink')";
+
+$vid = "select vid from videos where uid='$uid' and videoname='$videoname';
+
+
+// send query
 if (mysqli_query($conn, $sql)) {
-    //Redirect to homepage after successful upload
-header("Location: http://web.engr.oregonstate.edu/~kannas/database-pr/Database-Project/views/homepage.php");
+    //redirect to homepage after successful upload
+header("location: http://web.engr.oregonstate.edu/~kannas/database-pr/database-project/views/homepage.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-// Close connection
+// close connection
 $conn->close();
 ?>

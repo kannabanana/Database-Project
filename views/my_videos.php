@@ -160,6 +160,13 @@ $conn->close();
                               <div class="form-group">
                                   <input class="form-control" name="videolink" type="text" placeholder="Youtube Video Embed URL" required>
                               </div>
+
+      			      <div>
+				   <input class="form-control" name="keyword1" type="text"placeholder="Keyword one"  required>
+				    <input class="form-control" name="keyword2" type="text"placeholder="Keyword two"  required>
+				    <input class="form-control" name="keyword3" type="text"placeholder="Keyword three"  required>
+				</div>
+
                               <button type="submit" class="btn btn-primary">Upload</button>
                           </form>
 
