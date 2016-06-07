@@ -11,6 +11,6 @@ session_unset();
 session_destroy();
 
 // Redirect to login page
-header("Location: http://people.oregonstate.edu/~leebran/Database-Project/views/");
+header("Location: http://web.engr.oregonstate.edu/~kannas/database-pr/Database-Project/views/");
 
 ?>

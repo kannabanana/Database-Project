@@ -38,7 +38,7 @@ if ($query = mysqli_query($conn, $sql)) {
     $_SESSION['major']    = $userRow[3];
 
     // Redirect to user homepage
-    header("Location: http://people.oregonstate.edu/~leebran/Database-Project/views/homepage.php");
+header("Location: http://web.engr.oregonstate.edu/~kannas/database-pr/Database-Project/views/homepage.php");
 
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);

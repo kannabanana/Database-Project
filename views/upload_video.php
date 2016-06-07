@@ -22,7 +22,7 @@ $sql = "INSERT INTO Videos (uid, videoname, videolink) VALUES ('$uid', '$videona
 // Send query
 if (mysqli_query($conn, $sql)) {
     //Redirect to homepage after successful upload
-    header("Location: http://people.oregonstate.edu/~leebran/Database-Project/views/homepage.php");
+header("Location: http://web.engr.oregonstate.edu/~kannas/database-pr/Database-Project/views/homepage.php");
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

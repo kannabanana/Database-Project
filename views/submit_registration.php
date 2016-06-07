@@ -16,7 +16,8 @@ $sql = "INSERT INTO Users (username, major, user_password) VALUES ('$username', 
 // Send query
 if (mysqli_query($conn, $sql)) {
     // Redirect to login page after successful registration
-    header("Location: http://people.oregonstate.edu/~leebran/Database-Project/views/");
+header("Location: http://web.engr.oregonstate.edu/~kannas/database-pr/Database-Project/views/homepage.php");
+
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

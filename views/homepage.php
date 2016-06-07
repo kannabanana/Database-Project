@@ -100,12 +100,12 @@ $conn->close();
                       <a class="navbar-brand" href="#">Telly</a>
                   </div>
                   <ul class="nav navbar-nav">
-                      <li><a href="http://people.oregonstate.edu/~leebran/Database-Project/views/homepage.php">Homepage</a></li>
-                      <li><a href="http://people.oregonstate.edu/~leebran/Database-Project/views/my_videos.php">My Videos</a></li>
-                      <li><a href="http://people.oregonstate.edu/~leebran/Database-Project/views/review_video.php">Review Video</a></li>
+                      <li><a href="http://web.engr.oregonstate.edu/~kannas/database-pr/Database-Project/views/homepage.php">Homepage</a></li>
+                      <li><a href="http://web.engr.oregonstate.edu/~kannas/database-pr/Database-Project/views/my_videos.php">My Videos</a></li>
+                      <li><a href="http://web.engr.oregonstate.edu/~kannas/database-pr/Database-Project/views/review_video.php">Review Video</a></li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
-                      <li><a href="http://people.oregonstate.edu/~leebran/Database-Project/views/update_profile.php"><?php echo $_SESSION['username']; ?></a></li>
+                      <li><a href="http://web.engr.oregonstate.edu/~kannas/database-pr/Database-Project/views/update_profile.php"><?php echo $_SESSION['username']; ?></a></li>
                   </ul>
                   <form data-toggle="validator" role="form" class="navbar-form pull-right" action="submit_logout.php" method="post">
                       <button type="submit" class="btn">Logout</button>
