@@ -13,6 +13,8 @@ $major = $_SESSION['major'];
 // Define query
 $sql0 = "SELECT DISTINCT Videos.vid, Videos.videoname, Videos.videolink FROM Videos INNER JOIN Users ON Videos.uid = Users.uid WHERE Users.major = '$major'";
 $sql1 = "SELECT * FROM Comments";
+$sql2 = "SELECT * FROM Keywords";
+
 
 // Query to find videos in database
 if ($query0 = mysqli_query($conn, $sql0)) {
@@ -31,6 +33,28 @@ if ($query0 = mysqli_query($conn, $sql0)) {
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
+
+
+if ($query2 = mysqli_query($conn, $sql2)) {
+    $keywordcounter = 0;
+
+    // Of video query results, set each of them with session variables
+    while ($keywordRow = $query2->fetch_assoc()) {
+	$_SESSION['key_videoname'. $keywordcounter]   = $keywordRow['videoname']; 
+        $_SESSION['fkeyword1' . $keywordcounter]   = $keywordRow['keyword1'];
+        $_SESSION['fkeyword2' . $keywordcounter] = $keywordRow['keyword2'];
+        $_SESSION['fkeyword3' . $keywordcounter] = $keywordRow['keyword3'];
+        $keywordcounter++;
+    }
+
+    // Free result set
+    $query2->free();
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+
+
 
 // Query to find comments in database
 if ($query1 = mysqli_query($conn, $sql1)) {
@@ -152,6 +176,18 @@ $conn->close();
                           } else {
                               echo '<p id="ratingComment">This video has not been rated yet.</p>';
                           }
+
+
+			echo '<h5>Keywords:</h5>';
+			for ($k = 0; $k < $keywordcounter; $k++) {
+                              if ($_SESSION['videoname' . $i] == $_SESSION['key_videoname' . $k]) {
+                                  echo '<p>' . $_SESSION['fkeyword1' . $k] . '</p>';
+		                  echo '<p>' . $_SESSION['fkeyword2' . $k] . '</p>';
+		                  echo '<p>' . $_SESSION['fkeyword3' . $k] . '</p>';
+	
+                              }
+                          }
+
 
                           echo '<h5>Comments:</h5>';
 

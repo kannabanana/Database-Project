@@ -57,6 +57,7 @@ if ($query2 = mysqli_query($conn, $sql2)) {
 
     // Of video query results, set each of them with session variables
     while ($keywordRow = $query2->fetch_assoc()) {
+	$_SESSION['key_videoname'. $keywordcounter]   = $keywordRow['videoname']; 
         $_SESSION['fkeyword1' . $keywordcounter]   = $keywordRow['keyword1'];
         $_SESSION['fkeyword2' . $keywordcounter] = $keywordRow['keyword2'];
         $_SESSION['fkeyword3' . $keywordcounter] = $keywordRow['keyword3'];
@@ -157,6 +158,17 @@ $conn->close();
                               echo '<p id="ratingComment">This video has not been rated yet.</p>';
                           }
 
+			echo '<h5>Keywords:</h5>';
+			for ($k = 0; $k < $keywordcounter; $k++) {
+                              if ($_SESSION['videoname' . $i] == $_SESSION['key_videoname' . $k]) {
+                                  echo '<p>' . $_SESSION['fkeyword1' . $k] . '</p>';
+		                  echo '<p>' . $_SESSION['fkeyword2' . $k] . '</p>';
+		                  echo '<p>' . $_SESSION['fkeyword3' . $k] . '</p>';
+	
+                              }
+                          }
+
+
                           echo '<h5>Comments:</h5>';
 
                           // Check every comment for every video and print comments if relevant to the specific video
@@ -189,7 +201,7 @@ $conn->close();
 
 			 <br>
 			 <br>
-			<h3>Update keywords for your video!:</h3>
+			<h3>Update keywords for your video:</h3>
 			   <form data-toggle="validator" role="form" class="form-inline" action="upload_keywords.php" autocomplete="off" method="post">
                               <div class="form-group">
 				    <input class="form-control" name="videoname" type="text" placeholder="Video Title" required>
