@@ -70,7 +70,7 @@ if ($query2 = mysqli_query($conn, $sql2)) {
 for ($i = 0; $i < $videoCounter; $i++) {
 
     // Define query
-    $sql2 = "SELECT AVG(rating) AS RatingAverage FROM Ratings WHERE Ratings.vid =" . $_SESSION['homepage_videoid' . $i];
+    $sql2 = "SELECT DISTINCT AVG(rating) AS RatingAverage FROM Ratings WHERE Ratings.vid =" . $_SESSION['homepage_videoid' . $i];
 
     // Of found values, set them to session variables
     if ($query2 = mysqli_query($conn, $sql2)) {
