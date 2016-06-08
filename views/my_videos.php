@@ -13,6 +13,7 @@ $uid = $_SESSION['uid'];
 // Define query
 $sql0 = "SELECT * FROM Videos WHERE uid = '$uid'";
 $sql1 = "SELECT * FROM Comments";
+$sql2 = "SELECT * FROM Keywords";
 
 // Query to find videos in database
 if ($query0 = mysqli_query($conn, $sql0)) {
@@ -45,6 +46,22 @@ if ($query1 = mysqli_query($conn, $sql1)) {
 
     // Free result set
     $query1->free();
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+if ($query2 = mysqli_query($conn, $sql2)) {
+    $keywordcounter = 0;
+    // Of video query results, set each of them with session variables
+    while ($keywordRow = $query2->fetch_assoc()) {
+        $_SESSION['key_videoname'. $keywordcounter] = $keywordRow['videoname'];
+        $_SESSION['fkeyword1' . $keywordcounter] = $keywordRow['keyword1'];
+        $_SESSION['fkeyword2' . $keywordcounter] = $keywordRow['keyword2'];
+        $_SESSION['fkeyword3' . $keywordcounter] = $keywordRow['keyword3'];
+        $keywordcounter++;
+    }
+    // Free result set
+    $query2->free();
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
@@ -133,6 +150,15 @@ $conn->close();
                               echo '<p id="ratingComment">This video has not been rated yet.</p>';
                           }
 
+                          echo '<h5>Keywords:</h5>';
+                          for ($k = 0; $k < $keywordcounter; $k++) {
+                              if ($_SESSION['review_videoname' . $i] == $_SESSION['key_videoname' . $k]) {
+                                  echo '<p>' . $_SESSION['fkeyword1' . $k] . '</p>';
+                                  echo '<p>' . $_SESSION['fkeyword2' . $k] . '</p>';
+                                  echo '<p>' . $_SESSION['fkeyword3' . $k] . '</p>';
+                              }
+                          }
+
                           echo '<h5>Comments:</h5>';
 
                           // Check every comment for every video and print comments if relevant to the specific video
@@ -159,7 +185,27 @@ $conn->close();
                               <div class="form-group">
                                   <input class="form-control" name="videolink" type="text" placeholder="Youtube Video URL" required>
                               </div>
+
+                              <div>
+                                  <input class="form-control" name="keyword1" type="text"placeholder="Keyword one" required>
+                                  <input class="form-control" name="keyword2" type="text"placeholder="Keyword two" required>
+                                  <input class="form-control" name="keyword3" type="text"placeholder="Keyword three" required>
+                              </div>
+
                               <button type="submit" class="btn btn-primary">Upload</button>
+                          </form>
+
+                          <br>
+                          <br>
+                          <h3>Update keywords for your video!:</h3>
+                          <form data-toggle="validator" role="form" class="form-inline" action="upload_keywords.php" autocomplete="off" method="post">
+                              <div class="form-group">
+                                  <input class="form-control" name="videoname" type="text" placeholder="Video Title" required>
+                                  <input class="form-control" name="keyword1" type="text"placeholder="Keyword one"  required>
+                                  <input class="form-control" name="keyword2" type="text"placeholder="Keyword two"  required>
+                                  <input class="form-control" name="keyword3" type="text"placeholder="Keyword three"  required>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Update</button>
                           </form>
 
                           <br />

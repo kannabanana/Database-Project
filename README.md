@@ -49,4 +49,13 @@ CREATE TABLE Comments ( cid INTEGER NOT NULL AUTO_INCREMENT,
                         PRIMARY KEY (cid),
                         FOREIGN KEY (vid) REFERENCES Videos(vid),
                         FOREIGN KEY (uid) REFERENCES Users(uid))
-```
+
+CREATE TABLE Keywords (kid INTEGER NOT NULL AUTO_INCREMENT,
+                       vid INTEGER NOT NULL,
+                       uid INTEGER,
+                       keyword1 VARCHAR(10),
+                       keyword2 VARCHAR(10),
+                       keyword3 VARCHAR(10),
+                       PRIMARY KEY (kid),
+                       FOREIGN KEY (vid) REFERENCES Videos(vid),
+                       FOREIGN KEY (uid) REFERENCES Users(uid))
