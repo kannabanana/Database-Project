@@ -1,6 +1,9 @@
 <?php
 /* Submit major update to User database */
 
+// Start the session
+session_start();
+
 // Connect to database
 include 'database_configuration.php';
 
