@@ -25,11 +25,16 @@ $URL = str_ireplace("https://youtu.be/", "", $cleanVideoLink);
 
 // Define query
 $sql = "INSERT INTO Videos (uid, videoname, videolink) VALUES ('$uid', '$videoname', '$URL')";
+$sql1 = "INSERT INTO Keywords (uid,videoname,keyword1,keyword2,keyword3) VALUES ('$uid','$videoname','$keyword1','$keyword2','$keyword3')";
 
 // Send query
 if (mysqli_query($conn, $sql)) {
-    //Redirect to homepage after successful upload
-    header("Location: http://people.oregonstate.edu/~leebran/Database-Project/views/homepage.php");
+    if (mysqli_query($conn, $sql1)) {
+        //Redirect to homepage after successful upload
+        header("Location: http://people.oregonstate.edu/~leebran/Database-Project/views/homepage.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

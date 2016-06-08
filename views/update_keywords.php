@@ -19,7 +19,7 @@ $cleankey3 = mysqli_real_escape_string($conn, $keyword3);
 
 
 // Define query
-$sql = "INSERT INTO Keywords (uid,videoname,keyword1,keyword2,keyword3) VALUES ('$uid','$videoname','$keyword1','$keyword2','$keyword3')";
+$sql = "UPDATE Keywords SET keyword1='$keyword1', keyword2='$keyword2', keyword3='$keyword3' WHERE videoname='$videoname'";
 
 // Send query
 if (mysqli_query($conn, $sql)) {

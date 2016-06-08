@@ -140,11 +140,12 @@ $conn->close();
                       <!-- Web App Helpful Notes -->
                       <p>
                           This website serves as a platform for navigating helpful educational videos posted by peers and classmates. The various views
-                          can be navigated through by using the navigation bar above. Videos that are relevant to you are displayed to the right.
-                          In order to post videos and view videos you have posted, navigate to the "My Videos" view. To review videos, go to
-                          "Review Video" under the navigation bar. Comments on videos can be added on this page. You can change your major
-                          in the username button on the right side of the navbar. This platform is meant to be an educational hub for students
-                          around your classes.
+                          can be navigated through by using the navigation bar above. Videos that are relevant to you and your major are displayed to the right.
+                          In order to post videos and view videos you have posted, navigate to the "My Videos" view. Here you can post videos using the form
+                          submit links you find on Youtube's share video button located at the bottom of each Youtube video. You can also add
+                          keywords to your videos and delete videos as well. To review videos, go to "Review Video" under the navigation bar.
+                          Comments and ratings for videos can be added on this page. You can change your major in the username button on the right side of the navbar.
+                          This platform is meant to be an educational hub for students around your classes.
                       </p>
                   </div>
                   <!-----------------------------Begin Right column --------------------------- -->
@@ -172,7 +173,7 @@ $conn->close();
 
                           echo '<h5>Keywords:</h5>';
                           for ($k = 0; $k < $keywordcounter; $k++) {
-                              if ($_SESSION['review_videoname' . $i] == $_SESSION['key_videoname' . $k]) {
+                              if ($_SESSION['homepage_videoname' . $i] == $_SESSION['key_videoname' . $k]) {
                                   echo '<p>' . $_SESSION['fkeyword1' . $k] . '</p>';
                                   echo '<p>' . $_SESSION['fkeyword2' . $k] . '</p>';
                                   echo '<p>' . $_SESSION['fkeyword3' . $k] . '</p>';
